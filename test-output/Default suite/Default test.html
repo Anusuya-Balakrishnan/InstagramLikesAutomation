@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Thu Oct 05 17:50:07 IST 2023</td>
+<td>Started on:</td><td>Fri Oct 06 15:51:21 IST 2023</td>
 </tr>
-<tr><td>Total time:</td><td>105 seconds (105754 ms)</td>
+<tr><td>Total time:</td><td>118 seconds (118890 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -77,10 +77,11 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='LoginClass.login()'><b>login</b><br>Test class: LoginClass</td>
-<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //*[contains(text(),&apos;Not Now&apos;)] (tried for 100 second(s) with 500 milliseconds interval)
+<td><div><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[contains(@class,&apos;x1i10hfl xjqpnuy&apos;)] (tried for 100 second(s) with 500 milliseconds interval)
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-	at LoginClass.login(LoginClass.java:61)
+	at LoginClass.sendMessage(LoginClass.java:157)
+	at LoginClass.login(LoginClass.java:143)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -115,10 +116,10 @@ from unknown error: web view not found
 Build info: version: &apos;4.12.1&apos;, revision: &apos;8e34639b11&apos;
 System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.6&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [ff39dc63fc74c145ada0f50bbdbdc2af, findElement {using=xpath, value=//*[contains(text(),&apos;Not Now&apos;)]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 117.0.5938.134, chrome: {chromedriverVersion: 117.0.5938.149 (e3344ddefa1..., userDataDir: C:\Users\DELL1~1\AppData\Lo...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:50772}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:50772/devtoo..., se:cdpVersion: 117.0.5938.134, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: ff39dc63fc74c145ada0f50bbdbdc2af
-	at jdk.internal.reflect.GeneratedConstructorAccessor11.newInstance(Unknown Source)
+Command: [57ff5058339cc3291a81cdd86cc00e9c, findElement {using=xpath, value=//div[contains(@class,&apos;x1i10hfl xjqpnuy&apos;)]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 117.0.5938.134, chrome: {chromedriverVersion: 117.0.5938.149 (e3344ddefa1..., userDataDir: C:\Users\DELL1~1\AppData\Lo...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63341}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63341/devtoo..., se:cdpVersion: 117.0.5938.134, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 57ff5058339cc3291a81cdd86cc00e9c
+	at jdk.internal.reflect.GeneratedConstructorAccessor14.newInstance(Unknown Source)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
@@ -133,17 +134,16 @@ Session ID: ff39dc63fc74c145ada0f50bbdbdc2af
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:353)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:194)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:190)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:627)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:624)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:205)
-	... 29 more
-</pre></div><a href='#' onClick='toggleBox("stack-trace1922859107", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace1922859107'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //*[contains(text(),&apos;Not Now&apos;)] (tried for 100 second(s) with 500 milliseconds interval)
+	... 30 more
+</pre></div><a href='#' onClick='toggleBox("stack-trace1675999402", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1675999402'><pre>org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[contains(@class,&apos;x1i10hfl xjqpnuy&apos;)] (tried for 100 second(s) with 500 milliseconds interval)
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-	at LoginClass.login(LoginClass.java:61)
+	at LoginClass.sendMessage(LoginClass.java:157)
+	at LoginClass.login(LoginClass.java:143)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -178,10 +178,10 @@ from unknown error: web view not found
 Build info: version: &apos;4.12.1&apos;, revision: &apos;8e34639b11&apos;
 System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.6&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [ff39dc63fc74c145ada0f50bbdbdc2af, findElement {using=xpath, value=//*[contains(text(),&apos;Not Now&apos;)]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 117.0.5938.134, chrome: {chromedriverVersion: 117.0.5938.149 (e3344ddefa1..., userDataDir: C:\Users\DELL1~1\AppData\Lo...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:50772}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:50772/devtoo..., se:cdpVersion: 117.0.5938.134, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: ff39dc63fc74c145ada0f50bbdbdc2af
-	at jdk.internal.reflect.GeneratedConstructorAccessor11.newInstance(Unknown Source)
+Command: [57ff5058339cc3291a81cdd86cc00e9c, findElement {using=xpath, value=//div[contains(@class,&apos;x1i10hfl xjqpnuy&apos;)]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 117.0.5938.134, chrome: {chromedriverVersion: 117.0.5938.149 (e3344ddefa1..., userDataDir: C:\Users\DELL1~1\AppData\Lo...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63341}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63341/devtoo..., se:cdpVersion: 117.0.5938.134, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 57ff5058339cc3291a81cdd86cc00e9c
+	at jdk.internal.reflect.GeneratedConstructorAccessor14.newInstance(Unknown Source)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
@@ -196,15 +196,13 @@ Session ID: ff39dc63fc74c145ada0f50bbdbdc2af
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:353)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:194)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:190)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:627)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:624)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:205)
-	... 29 more
+	... 30 more
 </pre></div></td>
-<td>105</td>
-<td>LoginClass@1ca3b418</td></tr>
+<td>118</td>
+<td>LoginClass@25be7b63</td></tr>
 </table><p>
 </body>
 </html>

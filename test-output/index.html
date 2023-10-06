@@ -50,7 +50,7 @@
               <ul>
                 <li>
                   <a href="#" panel-name="test-xml-Default_suite" class="navigator-link ">
-                    <span>C:\Users\DELL 1\AppData\Local\Temp\testng-eclipse-1975079783\testng-customsuite.xml</span>
+                    <span>C:\Users\DELL 1\AppData\Local\Temp\testng-eclipse-590192622\testng-customsuite.xml</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -129,10 +129,11 @@
                   <a name="login">
                   </a> <!-- login -->
                   <span class="method-name">login</span>
-                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //*[contains(text(),&apos;Not Now&apos;)] (tried for 100 second(s) with 500 milliseconds interval)
+                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for presence of element located by: By.xpath: //div[contains(@class,&apos;x1i10hfl xjqpnuy&apos;)] (tried for 100 second(s) with 500 milliseconds interval)
 	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-	at LoginClass.login(LoginClass.java:61)
+	at LoginClass.sendMessage(LoginClass.java:157)
+	at LoginClass.login(LoginClass.java:143)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -167,10 +168,10 @@ from unknown error: web view not found
 Build info: version: &apos;4.12.1&apos;, revision: &apos;8e34639b11&apos;
 System info: os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;17.0.6&apos;
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [ff39dc63fc74c145ada0f50bbdbdc2af, findElement {using=xpath, value=//*[contains(text(),&apos;Not Now&apos;)]}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 117.0.5938.134, chrome: {chromedriverVersion: 117.0.5938.149 (e3344ddefa1..., userDataDir: C:\Users\DELL1~1\AppData\Lo...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:50772}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:50772/devtoo..., se:cdpVersion: 117.0.5938.134, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Session ID: ff39dc63fc74c145ada0f50bbdbdc2af
-	at jdk.internal.reflect.GeneratedConstructorAccessor11.newInstance(Unknown Source)
+Command: [57ff5058339cc3291a81cdd86cc00e9c, findElement {using=xpath, value=//div[contains(@class,&apos;x1i10hfl xjqpnuy&apos;)]}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 117.0.5938.134, chrome: {chromedriverVersion: 117.0.5938.149 (e3344ddefa1..., userDataDir: C:\Users\DELL1~1\AppData\Lo...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:63341}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:63341/devtoo..., se:cdpVersion: 117.0.5938.134, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 57ff5058339cc3291a81cdd86cc00e9c
+	at jdk.internal.reflect.GeneratedConstructorAccessor14.newInstance(Unknown Source)
 	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
 	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
 	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
@@ -185,12 +186,10 @@ Session ID: ff39dc63fc74c145ada0f50bbdbdc2af
 	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:59)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:359)
 	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:353)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:194)
-	at org.openqa.selenium.support.ui.ExpectedConditions$7.apply(ExpectedConditions.java:190)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:627)
-	at org.openqa.selenium.support.ui.ExpectedConditions$22.apply(ExpectedConditions.java:624)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
 	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:205)
-	... 29 more
+	... 30 more
 
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
@@ -200,7 +199,7 @@ Session ID: ff39dc63fc74c145ada0f50bbdbdc2af
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">C:\Users\DELL 1\AppData\Local\Temp\testng-eclipse-1975079783\testng-customsuite.xml</span>
+            <span class="header-content">C:\Users\DELL 1\AppData\Local\Temp\testng-eclipse-590192622\testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -253,7 +252,7 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'login')
 data.setCell(0, 2, 'LoginClass')
-data.setCell(0, 3, 105666);
+data.setCell(0, 3, 118800);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }

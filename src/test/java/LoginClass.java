@@ -27,12 +27,14 @@ public class LoginClass {
 //	login page
 		WebDriverManager.chromedriver().setup();
 		RemoteWebDriver driver=new ChromeDriver();
+//		String url="https://www.instagram.com/crazypriyalovely07/";
 		driver.manage().window().maximize();
 		driver.get("https://www.instagram.com/");
-		String username="anusuya_balakrishnan7";
-		String password="Abirami0212";
-//		String username="arikrishnan2210@gmail.com";
-//		String password="K@r@dikutty";
+//		String username="anusuya_balakrishnan7";
+//		String password="Anusuya0706";
+		String username="Crazypriyalovely07";
+		String password="Bot@12345";
+		
 		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(100));
 		
@@ -56,6 +58,7 @@ public class LoginClass {
 			System.out.println("submitElement is not enabled"); 
 		}
 		
+
 //		home page
 //		not now button1 
 		WebElement NotNowElement1=wait.until(ExpectedConditions.elementToBeClickable
@@ -85,33 +88,33 @@ public class LoginClass {
 		}
 		
 		
-//		click notifications
-//		WebElement notificationElement=wait.until(ExpectedConditions.presenceOfElementLocated
-//				(ByXPath.xpath("//svg[@aria-label='Notifications']")));
-//		
-//		notificationElement.click();
-		
-		
 //		get post parent element	
 		
 		WebElement postElementParent=wait.until(ExpectedConditions.
 				presenceOfElementLocated(
 						ByXPath.xpath("//div[contains(@class,'_ac7v  _al3n')]")));
 		List<WebElement> childElements=postElementParent.findElements(By.xpath("//div[contains(@class,'_aabd _aa8k  _al3l')]"));
-		System.out.println("postElement name"+childElements.size());		
+//		System.out.println("postElement name"+childElements.size());		
 //		childElements.get(0).click();
 		for(int eachIndex=0;eachIndex<childElements.size();eachIndex++) {
 			
 			System.out.println("postElement name"+childElements.get(eachIndex));		
 			childElements.get(eachIndex).click();
+			
+			
 //			click like list
 			WebElement element=wait.until(ExpectedConditions.
 					presenceOfElementLocated(
 							ByXPath.xpath("//section[contains(@class,'_ae5m _ae5n')]")));
-			element.click();
 			
-			WebDriverWait eWait= new WebDriverWait(driver, Duration.ofSeconds(10));
-			List<WebElement> child=eWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(ByXPath.
+			WebElement likeElement=element.findElement(By.xpath("(//span[contains(@class,'x1lliihq x1plvlek')]//a)[2]"));
+			
+			likeElement.click();
+			
+			System.out.println(likeElement+"clicked");
+//			WebDriverWait eWait= new WebDriverWait(driver, Duration.ofSeconds(10));
+			
+			List<WebElement> child=wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(ByXPath.
 					xpath("//div[contains(@class,'x1dm5mii x16mil14')]")));
 			
 			ArrayList<String> personList=new ArrayList<String>();
@@ -124,6 +127,7 @@ public class LoginClass {
 			}
 			System.out.println(personList);
 			
+			
 //			close the like page
 			WebElement closeElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
 					xpath("//div[@class='_ac7b _ac7d']")));
@@ -135,118 +139,117 @@ public class LoginClass {
 			closePost.click();
 			
 			
-		}
-		
-		
-		Actions actions = new Actions(driver);
-        actions.keyDown(Keys.CONTROL).sendKeys("n").keyUp(Keys.CONTROL).perform(); // Ctrl + N
-        
-        for (String windowHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(windowHandle);
-        }
-		
-//		open new window and send thank you message
-		driver.get("https://www.instagram.com/thamizh.hd/");
-		
-		WebElement messageElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-				xpath("//div[contains(@class,'x1i10hfl xjqpnuy')]")));
-		
-		messageElement.click();
-		
-//		sending thank you message
-		WebElement messageContentBox=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-				xpath("//p[@class='xat24cr xdj266r']")));
-		
-		messageContentBox.sendKeys("Thank you");
-		
-		WebElement sendButton=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-				xpath("//div[contains(@class,'x1i10hfl xjqpnuy')]")));
-		sendButton.click();
-		driver.close();
-		
-		for (String windowHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(windowHandle);
-        }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-//		System.out.println(parent4.getText());
-//		WebElement parent3=parent2.findElement(By.xpath("//div[contains(@class,'x7r02ix xf1ldfh')]"));
-//		WebElement parent4=wait.until(ExpectedConditions.presenceOfElementLocated(
-//				ByXPath.xpath("//div[contains(@class,'x129f619 xjbqb8w x78zum5')]")));
-//		WebElement parent4=parent3.findElement(By.xpath("//div[contains(@class,'x18oi6gw x78zum5')]"));
-				
-//		parent4.findElement(By.xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]"));
-//		System.out.println(parent4);
-		
-//		WebElement parentElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-//				xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]")));
-//		WebElement parentElement=driver.findElement(ByXPath.xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]"));
-//		List<WebElement> Elements=parentElement.findElements(ByXPath.xpath("*"));
-//		System.out.println("Elements.size()"+Elements.size());	
-//		for(WebElement eachParent:parentElement) {
-//			
-//			List<WebElement> result=eachParent.findElements(ByXPath.xpath("(//a[contains(@class,'x1i10hfl x1qjc9v5')])[2]"));
-//			for (WebElement eachElement:result) {
-//				String value=eachElement.getAttribute("href");
-//				data.add(value);
-//			}
-//		}
-//		System.out.println(data);
+//			calling the sendmessage method
+//			sendMessage(driver,wait);
+			
+		}	
 		
 
-//		System.out.println(eachPostElementLikeList);
-//		eachPostElementLikeList.click();
-//		
-//		if (eachPostElementLikeList.isEnabled()) {
-//			eachPostElementLikeList.click();
-//		}
-//		else {
-//			System.out.println("like element is not found");
-//		}
-		
-//		for (WebElement eachElement:childElements) {
-//			eachElement.click();
-//			System.out.println(eachElement+"click");
-//		}
-//		
-//		driver.findElement(ByXPath.xpath("//div[contains(@class,'_ac7v ')]//div)[1]")).click();
-		
-		
-//		List<WebElement> postElements=driver.findElements(ByXPath.xpath("//div[contains(@class,'_aabd _aa8k')]"));
-//		System.out.println("postElement"+postElements);
-//		for (WebElement eachElement:postElements) {
-//			eachElement.click();
-//			System.out.println(eachElement+"click");
-//		}
-//		logout operation
-//		href="/anusuya_balakrishnan7/"
-//		String userHref="/".concat(username.concat("/"));
-//		String userHrefXpath="//*[contains(text(),'".concat(userHref).concat("')]");
-//		System.out.println("userHrefXpath"+userHrefXpath);
-//		WebElement userHrefElement=wait.until(ExpectedConditions.elementToBeClickable
-//				(ByXPath.xpath(userHrefXpath)));
-//		if(userHrefElement.isEnabled()) {
-//			userHrefElement.click();
-//		}
-//		else {
-//			System.out.println("userHrefElement is not enabled"); 
-//		}
-		
-	}
 }
+
+
+public static void sendMessage(RemoteWebDriver driver, WebDriverWait wait) {
+	
+
+//	open new window and send thank you message
+	driver.get("https://www.instagram.com/thamizh.hd/");
+	
+	WebElement messageElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
+			xpath("//div[contains(@class,'x1i10hfl xjqpnuy')]")));
+	
+	messageElement.click();
+	
+//	sending thank you message
+	WebElement messageContentBox=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
+			xpath("//p[@class='xat24cr xdj266r']")));
+	
+	messageContentBox.sendKeys("Thank you");
+	
+	WebElement sendButton=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
+			xpath("//div[contains(@class,'x1i10hfl xjqpnuy')]")));
+	sendButton.click();
+	driver.close();
+	
+
+	
+}
+}
+
+
+
+
+
+
+
+
+
+
+//click notifications
+//WebElement notificationElement=wait.until(ExpectedConditions.presenceOfElementLocated
+//		(ByXPath.xpath("//svg[@aria-label='Notifications']")));
+//
+//notificationElement.click();
+
+//System.out.println(parent4.getText());
+//WebElement parent3=parent2.findElement(By.xpath("//div[contains(@class,'x7r02ix xf1ldfh')]"));
+//WebElement parent4=wait.until(ExpectedConditions.presenceOfElementLocated(
+//		ByXPath.xpath("//div[contains(@class,'x129f619 xjbqb8w x78zum5')]")));
+//WebElement parent4=parent3.findElement(By.xpath("//div[contains(@class,'x18oi6gw x78zum5')]"));
+		
+//parent4.findElement(By.xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]"));
+//System.out.println(parent4);
+
+//WebElement parentElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
+//		xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]")));
+//WebElement parentElement=driver.findElement(ByXPath.xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]"));
+//List<WebElement> Elements=parentElement.findElements(ByXPath.xpath("*"));
+//System.out.println("Elements.size()"+Elements.size());	
+//for(WebElement eachParent:parentElement) {
+//	
+//	List<WebElement> result=eachParent.findElements(ByXPath.xpath("(//a[contains(@class,'x1i10hfl x1qjc9v5')])[2]"));
+//	for (WebElement eachElement:result) {
+//		String value=eachElement.getAttribute("href");
+//		data.add(value);
+//	}
+//}
+//System.out.println(data);
+
+
+//System.out.println(eachPostElementLikeList);
+//eachPostElementLikeList.click();
+//
+//if (eachPostElementLikeList.isEnabled()) {
+//	eachPostElementLikeList.click();
+//}
+//else {
+//	System.out.println("like element is not found");
+//}
+
+//for (WebElement eachElement:childElements) {
+//	eachElement.click();
+//	System.out.println(eachElement+"click");
+//}
+//
+//driver.findElement(ByXPath.xpath("//div[contains(@class,'_ac7v ')]//div)[1]")).click();
+
+
+//List<WebElement> postElements=driver.findElements(ByXPath.xpath("//div[contains(@class,'_aabd _aa8k')]"));
+//System.out.println("postElement"+postElements);
+//for (WebElement eachElement:postElements) {
+//	eachElement.click();
+//	System.out.println(eachElement+"click");
+//}
+//logout operation
+//href="/anusuya_balakrishnan7/"
+//String userHref="/".concat(username.concat("/"));
+//String userHrefXpath="//*[contains(text(),'".concat(userHref).concat("')]");
+//System.out.println("userHrefXpath"+userHrefXpath);
+//WebElement userHrefElement=wait.until(ExpectedConditions.elementToBeClickable
+//		(ByXPath.xpath(userHrefXpath)));
+//if(userHrefElement.isEnabled()) {
+//	userHrefElement.click();
+//}
+//else {
+//	System.out.println("userHrefElement is not enabled"); 
+//}
+
