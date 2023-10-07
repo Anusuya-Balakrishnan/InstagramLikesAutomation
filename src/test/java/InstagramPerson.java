@@ -13,4 +13,15 @@ public class InstagramPerson {
 	public String toString() {
 		return this.personName+" "+this.personUrl+" "+Boolean.toString(this.response);
 	}
+	
+	public static void findPerson() {
+		String personurl="https://www.instagram.com/thamizh.hd/";
+		String[] stringarray=personurl.split("/");
+		String personName=stringarray[3];
+		System.out.println(personName);
+		
+	}
+	public static void main(String[] args) {
+		findPerson();
+	}
 }
