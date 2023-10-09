@@ -23,31 +23,30 @@ public class LoginClass {
 @Test
 	public void login() {
 		
-	
 //	login page
 		WebDriverManager.chromedriver().setup();
 		RemoteWebDriver driver=new ChromeDriver();
-//		String url="https://www.instagram.com/crazypriyalovely07/";
 		driver.manage().window().maximize();
 		driver.get("https://www.instagram.com/");
-//		String username="anusuya_balakrishnan7";
-//		String password="$Abirami02new";
 		String username="Crazypriyalovely07";
 		String password="Bot@12345";
 		
 		
+//		explicit wait
+		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		
-		
+//		username Element
 		WebElement userNameElement=wait.until(ExpectedConditions.presenceOfElementLocated
 				(ByXPath.xpath("//input[@name='username']")));
 		userNameElement.sendKeys(username);
 		
-		
+//		password element
 		WebElement passwordElement=wait.until(ExpectedConditions.presenceOfElementLocated
 (ByXPath.xpath("//input[@name='password']")));
 		passwordElement.sendKeys(password);
 		
+//		login button
 		WebElement submitElement=wait.until(ExpectedConditions.elementToBeClickable
 (ByXPath.xpath("//*[contains(text(),'Log in')]")));
 		
@@ -94,13 +93,13 @@ public class LoginClass {
 				presenceOfElementLocated(
 						ByXPath.xpath("//div[contains(@class,'_ac7v  _al3n')]")));
 		List<WebElement> childElements=postElementParent.findElements(By.xpath("//div[contains(@class,'_aabd _aa8k  _al3l')]"));
-//		System.out.println("postElement name"+childElements.size());		
-//		childElements.get(0).click();
+	
+		ArrayList<InstagramPerson> personList=new ArrayList<InstagramPerson>();
+		
 		for(int eachIndex=0;eachIndex<childElements.size();eachIndex++) {
 			
 //			System.out.println("postElement name"+childElements.get(eachIndex));		
 			childElements.get(eachIndex).click();
-			
 			
 //			click like list
 			WebElement element=wait.until(ExpectedConditions.
@@ -111,28 +110,52 @@ public class LoginClass {
 			
 			likeElement.click();
 			
-//			System.out.println(likeElement+"clicked");
-//			WebDriverWait eWait= new WebDriverWait(driver, Duration.ofSeconds(10));
-			
 			List<WebElement> child=wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(ByXPath.
 					xpath("//div[contains(@class,'x1dm5mii x16mil14')]")));
-//			(//div[contains(@class,'x1dm5mii x16mil14')])[1]
+
 //			collecting person url from post
-			ArrayList<InstagramPerson> personList=new ArrayList<InstagramPerson>();
 			
+			
+//			postName
+			String postName="post".concat(Integer.toString(childElements.size()-eachIndex));
+	
 //			collected like given list
 			for(int i=0;i<child.size();i++) {
 				
 				String xpath="(//div[@class='_aarf']//a)[".concat(Integer.toString(i+1)).concat("]");
-//				WebElement eachPerson=driver.findElement(ByXPath.xpath(xpath));
-//				WebElement eachPerson=child.get(i).findElement(By.xpath("(//a[contains(@class,'x1i10hfl x1qjc9v5')])[3]"));
 				WebElement eachPerson=child.get(i).findElement(By.xpath(xpath));
-				System.out.println("eachPerson"+eachPerson);
+//				System.out.println("eachPerson"+eachPerson);
 				String personUrl=eachPerson.getAttribute("href");
 				String personName=findPersonName(personUrl);
-				personList.add(new InstagramPerson(personName, personUrl, false));
+			
+				personList.add(new InstagramPerson(postName,personName, personUrl, true));
 			}
-			System.out.println(personList);
+//			System.out.println(personList);
+			
+//			creating object for Excel class
+			ExcelExample excelObj=new ExcelExample();
+			
+//			get data from excel
+			ArrayList<InstagramPerson> existingPersonList=excelObj.readData();
+			
+//			get new person details
+			ArrayList<InstagramPerson> newPersonList=new ArrayList<>();
+			
+			for(InstagramPerson eachPerson:personList) {
+				int count=0;
+				for(InstagramPerson eachPersonInExcel:existingPersonList) {
+					
+					if(eachPerson.personUrl.equals(eachPersonInExcel.personUrl) 
+							&& eachPerson.postName.equals(eachPersonInExcel.postName)) {
+						count++;
+						break;
+					}
+				}
+				if(count==0) {
+					newPersonList.add(eachPerson);
+				}
+			}
+			
 			
 //			close the like page
 			WebElement closeElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
@@ -144,14 +167,28 @@ public class LoginClass {
 					xpath("(//div[contains(@class,'x1i10hfl x6umtig')])[2]")));
 			closePost.click();
 			
-			
-			for(InstagramPerson eachPerson:personList) {
+//			calling the sendmessage method
+					
+			for(InstagramPerson eachPerson:newPersonList) {
 				sendMessage(driver,wait,eachPerson.personName);
 			}
 			
-//			calling the sendmessage method
+//			writing new person in excel
+			excelObj.writeData(newPersonList);
+		
 			
+//			logout part
 			
+//			WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+//					By.xpath("//span[text()='More']")));
+			WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+					By.xpath("//div[@class='xdy9tzy']/following-sibling::span[1]")));
+			moreButton.click();
+			WebElement logoutButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+					By.xpath("//span[text()='Log out']")));
+			logoutButton.click();
+//			quit browser
+			driver.quit();
 		}	
 		
 
@@ -168,22 +205,10 @@ public static String findPersonName(String personurl) {
 
 public static void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String personName) {
 	
-	// Open a new tab using JavaScript
-    ((JavascriptExecutor) driver).executeScript("window.open('', '_blank');");
 
-    // Switch to the new tab (window)
-    for (String windowHandle : driver.getWindowHandles()) {
-        driver.switchTo().window(windowHandle);
-    }
-
-    // Navigate to a URL in the new tab
-    driver.get("https://www.instagram.com/");
-//	direct message part
-	
-    
+//    finding direct message element
 	WebElement messageButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath("//a[@aria-label='Direct messaging - 0 new notifications link']")));
-	
 	
 	messageButtonElement.click();
 	
@@ -223,70 +248,14 @@ public static void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String
 	WebElement messageBox=wait.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath("//div[@aria-label='Message']")));
 	
-	messageBox.sendKeys("Thank you so much");
+	messageBox.sendKeys("Thanks for your Like and Support");
 	
 //	send button
 	
 	WebElement sendButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath("//div[text()='Send']")));
 	sendButtonElement.click();
-	
-	// Close the new tab
-    driver.close();
 
-    // Switch back to the original tab (window)
-    driver.switchTo().window(driver.getWindowHandles().iterator().next());
-
-    // Perform actions in the original tab
-	
-//	searchBoxElement.sendKeys(Keys.ENTER).pe;
-		
-//	open new window and send thank you message
-//	driver.get("https://www.instagram.com/thamizh.hd/");
-//	
-//	WebElement messageElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-//			xpath("//div[contains(@class,'x1i10hfl xjqpnuy')]")));
-//	
-//	if(!messageElement.isDisplayed()) {
-//		messageElement.click();
-//		
-////		sending thank you message
-//		WebElement messageContentBox=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-//				xpath("//p[@class='xat24cr xdj266r']")));
-//		
-//		messageContentBox.sendKeys("Thank you");
-//		
-//		WebElement sendButton=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-//				xpath("//div[contains(@class,'x1i10hfl xjqpnuy')]")));
-//		sendButton.click();
-//		driver.close();
-//	}
-//	else {
-//		System.out.println("element is not found");
-//		direct message part
-		
-//		WebElement messageButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
-//				By.xpath("//a[@aria-label='Direct messaging - 0 new notifications link']")));
-//		messageButtonElement.click();
-		
-//		click send message button
-//		
-//		WebElement sendMessageBtnElement=wait.until(ExpectedConditions.presenceOfElementLocated(
-//				By.xpath("//div[text()='Send message']")));
-//		sendMessageBtnElement.click();
-
-//		search input box
-		
-//		WebElement searchBoxElement=wait.until(ExpectedConditions.presenceOfElementLocated(
-//				By.xpath("//input[contains(@class,'x5ur3kl xopu45v')]")));
-//		
-//		searchBoxElement.sendKeys("thamizh.HD");
-//		searchBoxElement.sendKeys(Keys.ENTER);
-//		
-		
-		
-		
-//	}
 }
 }
 
@@ -297,74 +266,4 @@ public static void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String
 
 
 
-
-
-//click notifications
-//WebElement notificationElement=wait.until(ExpectedConditions.presenceOfElementLocated
-//		(ByXPath.xpath("//svg[@aria-label='Notifications']")));
-//
-//notificationElement.click();
-
-//System.out.println(parent4.getText());
-//WebElement parent3=parent2.findElement(By.xpath("//div[contains(@class,'x7r02ix xf1ldfh')]"));
-//WebElement parent4=wait.until(ExpectedConditions.presenceOfElementLocated(
-//		ByXPath.xpath("//div[contains(@class,'x129f619 xjbqb8w x78zum5')]")));
-//WebElement parent4=parent3.findElement(By.xpath("//div[contains(@class,'x18oi6gw x78zum5')]"));
-		
-//parent4.findElement(By.xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]"));
-//System.out.println(parent4);
-
-//WebElement parentElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-//		xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]")));
-//WebElement parentElement=driver.findElement(ByXPath.xpath("(//div[contains(@class,'x19f619 xjbqb8w')]//div)[2]"));
-//List<WebElement> Elements=parentElement.findElements(ByXPath.xpath("*"));
-//System.out.println("Elements.size()"+Elements.size());	
-//for(WebElement eachParent:parentElement) {
-//	
-//	List<WebElement> result=eachParent.findElements(ByXPath.xpath("(//a[contains(@class,'x1i10hfl x1qjc9v5')])[2]"));
-//	for (WebElement eachElement:result) {
-//		String value=eachElement.getAttribute("href");
-//		data.add(value);
-//	}
-//}
-//System.out.println(data);
-
-
-//System.out.println(eachPostElementLikeList);
-//eachPostElementLikeList.click();
-//
-//if (eachPostElementLikeList.isEnabled()) {
-//	eachPostElementLikeList.click();
-//}
-//else {
-//	System.out.println("like element is not found");
-//}
-
-//for (WebElement eachElement:childElements) {
-//	eachElement.click();
-//	System.out.println(eachElement+"click");
-//}
-//
-//driver.findElement(ByXPath.xpath("//div[contains(@class,'_ac7v ')]//div)[1]")).click();
-
-
-//List<WebElement> postElements=driver.findElements(ByXPath.xpath("//div[contains(@class,'_aabd _aa8k')]"));
-//System.out.println("postElement"+postElements);
-//for (WebElement eachElement:postElements) {
-//	eachElement.click();
-//	System.out.println(eachElement+"click");
-//}
-//logout operation
-//href="/anusuya_balakrishnan7/"
-//String userHref="/".concat(username.concat("/"));
-//String userHrefXpath="//*[contains(text(),'".concat(userHref).concat("')]");
-//System.out.println("userHrefXpath"+userHrefXpath);
-//WebElement userHrefElement=wait.until(ExpectedConditions.elementToBeClickable
-//		(ByXPath.xpath(userHrefXpath)));
-//if(userHrefElement.isEnabled()) {
-//	userHrefElement.click();
-//}
-//else {
-//	System.out.println("userHrefElement is not enabled"); 
-//}
 
