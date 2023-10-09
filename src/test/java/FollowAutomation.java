@@ -89,9 +89,16 @@ public class FollowAutomation {
 			System.out.println(notificationElementList);
 			List<WebElement> notificationChildElement=todayElement.findElements(
 					By.xpath("//div[contains(@class,'x6s0dn4 x1q4h3jn')]"));
+			
+
 			System.out.println(notificationChildElement.size());
 			for(WebElement eachElement:notificationChildElement) {
-				System.out.println(eachElement);
+				if(eachElement.findElements(By.xpath("*")).size()==3) {
+					WebElement element1=eachElement.findElement(By.xpath("*"));
+					String result=element1.findElement(By.xpath("//a[contains(@class,'x11i10hfl xjbqb8w x6umtig')]")).getAttribute("href");
+					System.out.println(result);
+				}
+				
 			}
 		}
 		
