@@ -6,6 +6,61 @@ import java.util.*;
 
 public class ExcelExample {
 	
+	public ArrayList<String> readFollowPersonData() {
+		ArrayList<String> existingPerson=new ArrayList<>();
+		try (FileInputStream fileInputStream = new FileInputStream("FollowData.xlsx");
+                Workbook workbook = new XSSFWorkbook(fileInputStream)) {
+
+               // Specify the sheet name where your map data is located
+               Sheet sheet = workbook.getSheet("Data");
+               
+               Iterator<Row> rowIterator = sheet.iterator();
+               while (rowIterator.hasNext()) {
+                   Row row = rowIterator.next();
+                   Cell keyCell = row.getCell(0);//personName
+                   
+
+                   if (keyCell != null ) {
+                       String personName = keyCell.getStringCellValue();//personName
+                      
+                       existingPerson.add(personName);
+                   }
+               }
+
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+
+return existingPerson;
+	}
+	
+	public  void writeFollowPersonData(ArrayList<String> personList) {
+		// Specify the existing file you want to append data to
+        String existingFilePath = "FollowData.xlsx";
+//
+        try (FileInputStream existingFileInputStream = new FileInputStream(existingFilePath);
+             Workbook existingWorkbook = new XSSFWorkbook(existingFileInputStream)) {
+
+            Sheet sheet = existingWorkbook.getSheet("Data");
+
+            // Calculate the next available row
+            int rowNum = sheet.getLastRowNum() + 1;
+
+            
+            // Add the new data to the existing sheet
+            for (String eachPerson:personList) {
+                Row row = sheet.createRow(rowNum++);
+                Cell cell1 = row.createCell(0);
+                cell1.setCellValue(eachPerson);
+            }
+
+            try (FileOutputStream outputStream = new FileOutputStream(existingFilePath)) {
+                existingWorkbook.write(outputStream);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	
 	public ArrayList<InstagramPerson> readData() {
@@ -81,5 +136,9 @@ public class ExcelExample {
 	}
 	
 	
-   
+   public static void main(String[] args) {
+	ExcelExample obj=new ExcelExample();
+	ArrayList<String> personList=new ArrayList<>();
+	obj.writeFollowPersonData(personList);
+}
 }

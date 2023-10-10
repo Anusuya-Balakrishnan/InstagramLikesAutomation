@@ -1,5 +1,5 @@
 import java.time.Duration;
-import java.util.List;
+import java.util.*;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
@@ -29,7 +29,7 @@ public class FollowAutomation {
 		
 //		explicit wait
 		
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
 		
 //		username Element
 		WebElement userNameElement=wait.until(ExpectedConditions.presenceOfElementLocated
@@ -81,27 +81,121 @@ public class FollowAutomation {
 		}else {
 			System.out.println("notification element is not present");
 		}
+		
 		WebElement todayElement=wait.until(ExpectedConditions.
 				presenceOfElementLocated(By.xpath("(//div[contains(@class,'x78zum5 x1c436fg')]//span)[1]")));
-		if(todayElement.getText().equalsIgnoreCase("today")) {
-			WebElement notificationElementList=wait.until(ExpectedConditions.
-					presenceOfElementLocated(By.xpath("(//div[contains(@class,'x78zum5 x1c436fg')]/following-sibling::div)[1]")));
-			System.out.println(notificationElementList);
-			List<WebElement> notificationChildElement=todayElement.findElements(
-					By.xpath("//div[contains(@class,'x6s0dn4 x1q4h3jn')]"));
-			
+		
+		
+//		find element which contains started following you 
+		List<WebElement> elements=wait.until(
+				ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//span[contains(text(),'started following you.')]")));
+		
+		ArrayList<String> personList=new ArrayList<String>();
+		
+		System.out.println("size"+elements.size());
+		
+		for(int i=0;i<elements.size();i++) {
 
-			System.out.println(notificationChildElement.size());
-			for(WebElement eachElement:notificationChildElement) {
-				if(eachElement.findElements(By.xpath("*")).size()==3) {
-					WebElement element1=eachElement.findElement(By.xpath("*"));
-					String result=element1.findElement(By.xpath("//a[contains(@class,'x11i10hfl xjbqb8w x6umtig')]")).getAttribute("href");
-					System.out.println(result);
+			String []userUrl=elements.get(i).getText().split("\n");
+
+			personList.add(userUrl[0]);
+		}
+		System.out.println(personList);
+		ExcelExample excelobj=new ExcelExample();
+		ArrayList<String> existingFollowPerson=excelobj.readFollowPersonData();
+		ArrayList<String> newPersonList=new ArrayList<>();
+		for(String newEachPerson:personList) {
+			int count=0;
+			for(String existingEachPerson:existingFollowPerson) {
+				if(existingEachPerson.equals(newEachPerson)) {
+					count++;
+					break;
 				}
-				
+			}
+			if(count==0) {
+				newPersonList.add(newEachPerson);
 			}
 		}
 		
+		for(String eachPerson:newPersonList) {
+//			System.out.println(eachPerson);
+			sendMessage(driver,wait,eachPerson);
+		}
+		
+//		writing data in excel sheet
+		excelobj.writeFollowPersonData(newPersonList);
+		
+		//logout part
+		
+//		WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+//				By.xpath("//span[text()='More']")));
+		WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//div[@class='xdy9tzy']/following-sibling::span[1]")));
+		moreButton.click();
+		WebElement logoutButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//span[text()='Log out']")));
+		logoutButton.click();
+//		quit browser
+		driver.quit();
+
 		
 	}
+
+
+	
+	public void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String personName) {
+		
+
+//	    finding direct message element
+		WebElement messageButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//a[@aria-label='Direct messaging - 0 new notifications link']")));
+		
+		messageButtonElement.click();
+		
+		
+//		click send message button
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		WebElement sendMessageBtnElement=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//div[text()='Send message']")));
+		sendMessageBtnElement.click();
+
+		
+//		search input box
+		
+		WebElement searchBoxElement=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.cssSelector("input[name='queryBox']")));
+		
+//		find people
+//		String person="thamizh.HD";
+		searchBoxElement.sendKeys(personName);
+		
+		String personXpath="//span[contains(text(),'".concat(personName.toLowerCase()).concat("')]");
+		WebElement searchPeopleElement=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath(personXpath)));
+		
+		searchPeopleElement.click();	
+		
+	// click chat button
+		
+		WebElement chatButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//div[text()='Chat']")));
+		
+		chatButton.click();
+		
+		
+//		find message box
+		
+		WebElement messageBox=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//div[@aria-label='Message']")));
+		
+		messageBox.sendKeys("Hello! Thanks for following me on Instagram.");
+		
+//		send button
+		
+		WebElement sendButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//div[text()='Send']")));
+		sendButtonElement.click();
+
+	}
+	
 }
