@@ -23,7 +23,7 @@ public class FollowAutomation {
 		RemoteWebDriver driver=new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://www.instagram.com/");
-		String username="Crazypriyalovely07";
+	  String username="Crazypriyalovely07";
 		String password="Bot@12345";
 		
 		
@@ -148,7 +148,7 @@ public class FollowAutomation {
 
 //	    finding direct message element
 		WebElement messageButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
-				By.xpath("//a[@aria-label='Direct messaging - 0 new notifications link']")));
+				By.xpath("//a[contains(@aria-label,'Direct messaging')]")));
 		
 		messageButtonElement.click();
 		

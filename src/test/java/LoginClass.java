@@ -1,21 +1,14 @@
-import java.sql.Time;
+
 import java.time.Duration;
 import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.By.ByXPath;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
-import org.w3c.dom.html.HTMLAnchorElement;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.*;
 public class LoginClass {
@@ -28,8 +21,12 @@ public class LoginClass {
 		RemoteWebDriver driver=new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://www.instagram.com/");
+//		user name
 		String username="Crazypriyalovely07";
+//		password
 		String password="Bot@12345";
+//		post number
+		int postNumber=2;
 		
 		
 //		explicit wait
@@ -96,125 +93,129 @@ public class LoginClass {
 	
 		ArrayList<InstagramPerson> personList=new ArrayList<InstagramPerson>();
 		
+		
+		// get post element one by one
 		for(int eachIndex=0;eachIndex<childElements.size();eachIndex++) {
 			
-//			System.out.println("postElement name"+childElements.get(eachIndex));		
-			childElements.get(eachIndex).click();
 			
-//			click like list
-			WebElement element=wait.until(ExpectedConditions.
-					presenceOfElementLocated(
-							ByXPath.xpath("//section[contains(@class,'_ae5m _ae5n')]")));
-			
-			WebElement likeElement=element.findElement(By.xpath("(//span[contains(@class,'x1lliihq x1plvlek')]//a)[2]"));
-			
-			likeElement.click();
-			
-			List<WebElement> child=wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(ByXPath.
-					xpath("//div[contains(@class,'x1dm5mii x16mil14')]")));
-
-//			collecting person url from post
-			
-			
-//			postName
-			String postName="post".concat(Integer.toString(childElements.size()-eachIndex));
-	
-//			collected like given list
-			for(int i=0;i<child.size();i++) {
+			if(postNumber==childElements.size()-eachIndex) {
+//				System.out.println("postElement name"+childElements.get(eachIndex));		
+				childElements.get(eachIndex).click();
 				
-				String xpath="(//div[@class='_aarf']//a)[".concat(Integer.toString(i+1)).concat("]");
-				WebElement eachPerson=child.get(i).findElement(By.xpath(xpath));
-//				System.out.println("eachPerson"+eachPerson);
-				String personUrl=eachPerson.getAttribute("href");
-				String personName=findPersonName(personUrl);
-			
-				personList.add(new InstagramPerson(postName,personName, personUrl, true));
-			}
-//			System.out.println(personList);
-			
-//			creating object for Excel class
-			ExcelExample excelObj=new ExcelExample();
-			
-//			get data from excel
-			ArrayList<InstagramPerson> existingPersonList=excelObj.readData();
-			
-//			get new person details
-			ArrayList<InstagramPerson> newPersonList=new ArrayList<>();
-			
-			for(InstagramPerson eachPerson:personList) {
-				int count=0;
-				for(InstagramPerson eachPersonInExcel:existingPersonList) {
+//				click like list
+				WebElement element=wait.until(ExpectedConditions.
+						presenceOfElementLocated(
+								ByXPath.xpath("//section[contains(@class,'_ae5m _ae5n')]")));
+				
+				WebElement likeElement=element.findElement(By.xpath("(//span[contains(@class,'x1lliihq x1plvlek')]//a)[2]"));
+				
+				likeElement.click();
+				
+				List<WebElement> child=wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(ByXPath.
+						xpath("//div[contains(@class,'x1dm5mii x16mil14')]")));
+
+//				collecting person url from post
+				
+				
+//				postName
+				String postName="post".concat(Integer.toString(childElements.size()-eachIndex));
+		
+//				collected like given list
+				for(int i=0;i<child.size();i++) {
 					
-					if(eachPerson.personUrl.equals(eachPersonInExcel.personUrl) 
-							&& eachPerson.postName.equals(eachPersonInExcel.postName)) {
-						count++;
-						break;
+					String xpath="(//div[@class='_aarf']//a)[".concat(Integer.toString(i+1)).concat("]");
+					WebElement eachPerson=child.get(i).findElement(By.xpath(xpath));
+//					System.out.println("eachPerson"+eachPerson);
+					String personUrl=eachPerson.getAttribute("href");
+					String personName=findPersonName(personUrl);
+				
+					personList.add(new InstagramPerson(postName,personName, personUrl, true));
+				}
+//				System.out.println(personList);
+				
+//				creating object for Excel class
+				ExcelExample excelObj=new ExcelExample();
+				
+//				get data from excel
+				ArrayList<InstagramPerson> existingPersonList=excelObj.readData();
+				
+//				get new person details
+				ArrayList<InstagramPerson> newPersonList=new ArrayList<>();
+				
+				for(InstagramPerson eachPerson:personList) {
+					int count=0;
+					for(InstagramPerson eachPersonInExcel:existingPersonList) {
+						
+						if(eachPerson.personUrl.equals(eachPersonInExcel.personUrl) 
+								&& eachPerson.postName.equals(eachPersonInExcel.postName)) {
+							count++;
+							break;
+						}
+					}
+					if(count==0) {
+						newPersonList.add(eachPerson);
 					}
 				}
-				if(count==0) {
-					newPersonList.add(eachPerson);
+				
+				
+//				close the like page
+				WebElement closeElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
+						xpath("//div[@class='_ac7b _ac7d']")));
+				closeElement.click();
+				
+//				close the post page
+				WebElement closePost=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
+						xpath("(//div[contains(@class,'x1i10hfl x6umtig')])[2]")));
+				closePost.click();
+				
+//				calling the sendmessage method
+						
+				for(InstagramPerson eachPerson:newPersonList) {
+					sendMessage(driver,wait,eachPerson.personName);
 				}
+				
+//				writing new person in excel
+				excelObj.writeData(newPersonList);
+
 			}
-			
-			
-//			close the like page
-			WebElement closeElement=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-					xpath("//div[@class='_ac7b _ac7d']")));
-			closeElement.click();
-			
-//			close the post page
-			WebElement closePost=wait.until(ExpectedConditions.presenceOfElementLocated(ByXPath.
-					xpath("(//div[contains(@class,'x1i10hfl x6umtig')])[2]")));
-			closePost.click();
-			
-//			calling the sendmessage method
-					
-			for(InstagramPerson eachPerson:newPersonList) {
-				sendMessage(driver,wait,eachPerson.personName);
+			else {
+				System.out.println(postNumber+"is not correct");
 			}
-			
-//			writing new person in excel
-			excelObj.writeData(newPersonList);
 		
 			
-//			logout part
-			
-//			WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
-//					By.xpath("//span[text()='More']")));
-			WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
-					By.xpath("//div[@class='xdy9tzy']/following-sibling::span[1]")));
-			moreButton.click();
-			WebElement logoutButton=wait.until(ExpectedConditions.presenceOfElementLocated(
-					By.xpath("//span[text()='Log out']")));
-			logoutButton.click();
-//			quit browser
-			driver.quit();
 		}	
 		
-
+//		logout part
+//		WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+//				By.xpath("//span[text()='More']")));
+		WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//div[@class='xdy9tzy']/following-sibling::span[1]")));
+		moreButton.click();
+		WebElement logoutButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+				By.xpath("//span[text()='Log out']")));
+		logoutButton.click();
+//		quit browser
+		driver.quit();
 }
 
 public static String findPersonName(String personurl) {
 	
+//	get person name from url
 	String[] stringarray=personurl.split("/");
 	String personName=stringarray[3];
 	System.out.println(personName);
 	return personName;
-	
 }
 
 public static void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String personName) {
 	
-
 //    finding direct message element
 	WebElement messageButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
-			By.xpath("//a[@aria-label='Direct messaging - 0 new notifications link']")));
+			By.xpath("//a[contains(@aria-label,'Direct messaging')]")));
 	
 	messageButtonElement.click();
 	
-	
 //	click send message button
-	
 	WebElement sendMessageBtnElement=wait.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath("//div[text()='Send message']")));
 	sendMessageBtnElement.click();
@@ -226,10 +227,10 @@ public static void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String
 			By.cssSelector("input[name='queryBox']")));
 	
 //	find people
-//	String person="thamizh.HD";
+//	personName="thamizh.HD";
 	searchBoxElement.sendKeys(personName);
 	
-	String personXpath="//span[text()='".concat(personName.toLowerCase()).concat("']");
+	String personXpath="//span[contains(text(),'".concat(personName.toLowerCase()).concat("')]");
 	WebElement searchPeopleElement=wait.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath(personXpath)));
 	
@@ -247,9 +248,8 @@ public static void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String
 	
 	WebElement messageBox=wait.until(ExpectedConditions.presenceOfElementLocated(
 			By.xpath("//div[@aria-label='Message']")));
-	
 	messageBox.sendKeys("Thanks for your Like and Support");
-	
+
 //	send button
 	
 	WebElement sendButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
