@@ -169,11 +169,21 @@ public class FollowAutomation {
 //		String person="thamizh.HD";
 		searchBoxElement.sendKeys(personName);
 		
-		String personXpath="//span[contains(text(),'".concat(personName.toLowerCase()).concat("')]");
-		WebElement searchPeopleElement=wait.until(ExpectedConditions.presenceOfElementLocated(
-				By.xpath(personXpath)));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		
-		searchPeopleElement.click();	
+		try {
+			String personXpath="//span[contains(text(),'".concat(personName.toLowerCase()).concat("')]");
+			WebElement searchPeopleElement=driver.findElement(By.xpath(personXpath));
+			searchPeopleElement.click();
+		}
+		catch(Exception e) {
+//			get check box name
+			WebElement labelCheckBoxElement=driver.findElement(By.xpath("//label[contains(@for,'ContactSearchResultCheckbox')]"));
+			WebElement searchResultCheckBox=labelCheckBoxElement.findElement(
+					By.xpath("(//input[contains(@name,'ContactSearchResultCheckbox')])[1]"));
+					
+			searchResultCheckBox.click();
+		}
 		
 	// click chat button
 		
