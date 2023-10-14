@@ -137,14 +137,14 @@ public class LoginClass {
 //		logout part
 //		WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
 //				By.xpath("//span[text()='More']")));
-		WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
-				By.xpath("//div[@class='xdy9tzy']/following-sibling::span[1]")));
-		moreButton.click();
-		WebElement logoutButton=wait.until(ExpectedConditions.presenceOfElementLocated(
-				By.xpath("//span[text()='Log out']")));
-		logoutButton.click();
-//		quit browser
-		driver.quit();
+//		WebElement moreButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+//				By.xpath("//div[@class='xdy9tzy']/following-sibling::span[1]")));
+//		moreButton.click();
+//		WebElement logoutButton=wait.until(ExpectedConditions.presenceOfElementLocated(
+//				By.xpath("//span[text()='Log out']")));
+//		logoutButton.click();
+////		quit browser
+//		driver.quit();
 		
 		
 		// get post element one by one

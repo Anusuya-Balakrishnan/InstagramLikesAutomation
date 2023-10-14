@@ -16,7 +16,7 @@ public class FollowAutomation {
 
 	
 	@Test
-	public void followAutomation() {
+	public void followAutomation() throws InterruptedException {
 		
 //		login page
 		WebDriverManager.chromedriver().setup();
@@ -143,7 +143,7 @@ public class FollowAutomation {
 
 
 	
-	public void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String personName) {
+	public void sendMessage(RemoteWebDriver driver, WebDriverWait wait,String personName) throws InterruptedException {
 		
 
 //	    finding direct message element
@@ -200,11 +200,32 @@ public class FollowAutomation {
 		
 		messageBox.sendKeys("Hello! Thanks for following me on Instagram.");
 		
+
+//		select message body
+//		WebElement messageBodyElement=wait.until(ExpectedConditions.presenceOfElementLocated(
+//				By.xpath("//div[contains(@aria-label,'Messages in conversation with')]")));
+//		List<WebElement> sendContentElements=messageBodyElement.findElements(
+//				By.xpath("//div[contains(@class,'x13dflua x19991ni')]"));
+//		
+//		System.out.println("before sending element"+sendContentElements.size());
+//		int previousSize=sendContentElements.size();
+//		sending image file
+//		WebElement fileUploadButton=wait.until(ExpectedConditions.presenceOfElementLocated
+//				(By.xpath("//input[contains(@class,'x1s85apg')]")));
+//		String path="C:\\Users\\DELL 1\\eclipse-workspace\\InstagramAutomation\\video\\video.mp4";
+//		fileUploadButton.sendKeys(path);
+		
 //		send button
 		
 		WebElement sendButtonElement=wait.until(ExpectedConditions.presenceOfElementLocated(
 				By.xpath("//div[text()='Send']")));
+		
 		sendButtonElement.click();
+		
+//		WebElement currentContentElement=wait.until(sendContentElements.get(previousSize)));
+//		Thread.sleep(5000);
+		    
+	
 
 	}
 	
